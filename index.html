@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Tracking - Your Company</title>
+    <style>
+        /* Existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+        .navbar {
+            background-color: #0033a0;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .navbar .logo {
+            height: 60px; /* Adjust as needed */
+            margin-right: 20px;
+        }
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 10px;
+            font-size: 16px;
+        }
+        .navbar .menu a:hover {
+            text-decoration: underline;
+        }
+        .navbar .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .navbar .menu-items {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .navbar .menu-items.hidden {
+            display: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #0033a0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .footer-column {
+            min-width: 200px;
+        }
+        .footer-column h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .footer-contact {
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .navbar .menu {
+                display: none;
+            }
+            .navbar .hamburger {
+                display: block;
+            }
+            .navbar .menu-items {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #0033a0;
+                padding: 10px;
+                z-index: 1000;
+            }
+            .navbar .menu-items a {
+                margin: 10px 0;
+                font-size: 18px;
+                text-align: center;
+                color: white;
+            }
+        }
+        @media (max-width: 480px) {
+            .navbar .menu a {
+                font-size: 14px;
+                margin: 5px 0;
+            }
+            .footer-column h2 {
+                font-size: 12px;
+            }
+            .footer-links a {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="yhu.png" alt="Your Company Logo" class="logo">
+        <div class="hamburger">&#9776;</div>
+        <div class="menu-items hidden">
+            <a href="#">Locations</a>
+            <a href="#">Support</a>
+            <a href="#">Informed Delivery</a>
+            <a href="#">Register / Sign In</a>
+        </div>
+        <div class="menu">
+            <a href="#">Locations</a>
+            <a href="#">Support</a>
+            <a href="#">Informed Delivery</a>
+            <a href="#">Register / Sign In</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>Track Your Package</h1>
+        <form id="tracking-form">
+            <label for="tracking-number">Enter Tracking Number:</label>
+            <input type="text" id="tracking-number" name="tracking-number" required>
+            <button type="button" onclick="validateTrackingNumber()">Track</button>
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h2>Helpful Links</h2>
+                <div class="footer-links">
+                    <a href="#">Contact Us</a>
+                    <a href="#">Site Index</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Feedback</a>
+                    <a href="#">USPS Jobs</a>
+                    <a href="#">Careers</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h2>About USPS</h2>
+                <div class="footer-links">
+                    <a href="#">About USPS Home</a>
+                    <a href="#">Newsroom</a>
+                    <a href="#">USPS Service Updates</a>
+                    <a href="#">Forms & Publications</a>
+                    <a href="#">Government Services</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h2>Other USPS Sites</h2>
+                <div class="footer-links">
+                    <a href="#">Business Customer Gateway</a>
+                    <a href="#">Postal Inspectors</a>
+                    <a href="#">Inspector General</a>
+                    <a href="#">Postal Explorer</a>
+                    <a href="#">National Postal Museum</a>
+                    <a href="#">Resources for Developers</a>
+                    <a href="#">PostalPro</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h2>Legal Information</h2>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">FOIA</a>
+                    <a href="#">No FEAR Act/EEO Contacts</a>
+                    <a href="#">Fair Chance Act</a>
+                    <a href="#">Accessibility Statement</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-contact">
+            &copy; 2024 Your Company. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            var menuItems = document.querySelector('.menu-items');
+            menuItems.classList.toggle('hidden');
+        });
+
+        function validateTrackingNumber() {
+            var trackingNumber = document.getElementById('tracking-number').value;
+            var errorMessage = document.getElementById('error-message');
+            var trackingPattern = /^[A-Z0-9]{18}$/;
+
+            if (trackingPattern.test(trackingNumber)) {
+                // Redirect to the status page with the tracking number
+                window.location.href = 'status.html?tracking=' + encodeURIComponent(trackingNumber);
+            } else {
+                // Display an error message
+                errorMessage.textContent = 'Invalid tracking number.';
+            }
+        }
+    </script>
+</body>
+</html>

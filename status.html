@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Status - Your Company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+        .navbar {
+            background-color: #0033a0;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .navbar img {
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 10px;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .menu-toggle .bar {
+            background-color: white;
+            height: 3px;
+            width: 25px;
+            margin: 3px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .status-timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 0 auto;
+            border-left: 4px solid #007bff;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        .status-timeline::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 48%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #28a745;
+            border: 2px solid #fff;
+            z-index: 2; /* Ensure it's above other elements */
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+        }
+        .status-item {
+            position: relative;
+            padding: 20px 0;
+            margin-left: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        .status-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #007bff;
+            border: 2px solid #fff;
+        }
+        .status-item-content {
+            padding-left: 40px;
+        }
+        .status-item-content h2 {
+            margin: 0;
+            color: #333;
+        }
+        .status-item-content p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .status-item-content .date {
+            font-size: 14px;
+            color: #777;
+        }
+        .status-item-content .address {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+        }
+        .moving-circle {
+            position: absolute;
+            left: -16px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #007bff;
+            transform: translateY(-50%);
+            z-index: 1; /* Ensure it's below the green dot */
+            animation: moveCircle 10s linear infinite;
+        }
+        @keyframes moveCircle {
+            0% {
+                top: 0;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+        .back-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 10px;
+                background-color: #0033a0;
+                border-radius: 4px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                width: 200px;
+                z-index: 10; /* Ensure it's above other content */
+            }
+            .nav-links a {
+                padding: 10px;
+                text-align: center;
+                border-bottom: 1px solid #fff;
+            }
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .menu-toggle {
+                display: flex; /* Show the menu toggle button on small screens */
+            }
+            .status-timeline {
+                border-left: 4px solid #007bff;
+                border-top: none;
+                padding: 20px 0;
+                max-width: 100%;
+            }
+            .status-item {
+                margin-left: 0;
+                padding-left: 20px;
+                border-bottom: 1px solid #ddd;
+            }
+            .status-item::before {
+                left: 10px;
+            }
+            .status-item-content {
+                padding-left: 0;
+            }
+            .back-button {
+                position: static;
+                margin: 20px 0;
+            }
+        }
+        footer {
+            background-color: #0033a0;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 10px;
+        }
+        .footer-column h2 {
+            margin-top: 0;
+        }
+        .footer-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="yhu.png" alt="Your Company Logo">
+        <div class="menu-toggle" id="menu-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#">Locations</a>
+            <a href="#">Support</a>
+            <a href="#">Informed Delivery</a>
+            <a href="#">Register / Sign In</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>Package Status</h1>
+        <div class="status-timeline">
+            <div class="status-item">
+                <div class="status-item-content">
+                    <h2>Package Received</h2>
+                    <p>Our facility has received your package.</p>
+                    <div class="date">August 21, 2024</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-item-content">
+                    <h2>On the Way</h2>
+                    <p>Your package is on its way to the destination.</p>
+                    <div class="date">August 22, 2024</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-item-content">
+                    <h2>Departed Facility</h2>
+                    <p>Your package has departed from the facility.</p>
+                    <div class="date">August 23, 2024</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-item-content">
+                    <h2>Out for Delivery</h2>
+                    <p>Your package is out for delivery today.</p>
+                    <div class="date">August 24, 2024</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-item-content">
+                    <h2>Delivered</h2>
+                    <p>Your package has been delivered successfully.</p>
+                    <div class="date">August 24, 2024</div>
+                    <div class="address">1234 Elm Street, Apt 56, Your City, YC 12345</div>
+                </div>
+            </div>
+            <div class="moving-circle"></div>
+            <button class="back-button" onclick="window.location.href='index.html'">Back to Tracking</button>
+            <i>Green dot signifies current status of the packagetimeline</i>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h2>Helpful Links</h2>
+                <div class="footer-links">
+                    <a href="#">Contact Us</a>
+                    <a href="#">Site Index</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Feedback</a>
+                    <a href="#">USPS Jobs</a>
+                    <a href="#">Careers</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h2>About USPS</h2>
+                <div class="footer-links">
+                    <a href="#">About USPS Home</a>
+                    <a href="#">Newsroom</a>
+                    <a href="#">USPS Service Updates</a>
+                    <a href="#">Forms & Publications</a>
+                    <a href="#">Government Services</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h2>Stay Connected</h2>
+                <div class="footer-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+        
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('show');
+            });
+        });
+    </script>
+</body>
+</html>
